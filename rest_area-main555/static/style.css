@@ -1,0 +1,95 @@
+/* Tailwind가 대부분 처리하므로 Custom CSS는 최소화 */
+
+/* 필터 칩 버튼 스타일 */
+.filter-chip {
+    padding: 8px 16px;
+    border-radius: 999px;
+    background-color: white;
+    border: 1px solid #e5e7eb;
+    color: #4b5563;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    transition: all 0.2s;
+}
+
+
+.filter-chip:hover {
+    background-color: #f9fafb;
+}
+
+/* 활성화 상태 */
+.filter-chip.active-best { background: #fff7ed; color: #ea580c; border-color: #fdba74; }
+.filter-chip.active-ev { background: #f0fdf4; color: #16a34a; border-color: #86efac; }
+.filter-chip.active-gas { background: #eff6ff; color: #2563eb; border-color: #93c5fd; }
+
+/* 애니메이션 */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.5s ease-out forwards;
+}
+
+/* 타임라인 노드 스타일 */
+.timeline-item {
+    position: relative;
+    padding-left: 60px; /* 모바일 기준 */
+}
+
+/* 데스크탑(md) 이상에서는 지그재그 혹은 중앙 정렬 효과를 위해 */
+@media (min-width: 768px) {
+    .timeline-item {
+        padding-left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+    
+    /* 카드 너비 */
+    .timeline-card-wrapper {
+        width: 45%; 
+    }
+    
+    /* 왼쪽 배치 */
+    .timeline-item:nth-child(odd) .timeline-card-wrapper {
+        margin-right: auto;
+        padding-right: 30px;
+        text-align: right;
+    }
+    
+    /* 오른쪽 배치 */
+    .timeline-item:nth-child(even) .timeline-card-wrapper {
+        margin-left: auto;
+        padding-left: 30px;
+        text-align: left;
+    }
+
+    /* 중앙 점 위치 조정 */
+    .timeline-dot {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+/* 모바일 전용 점 위치 */
+@media (max-width: 767px) {
+    .timeline-dot {
+        position: absolute;
+        left: 32px; /* left-8 */
+        top: 24px;
+        transform: translateX(-50%);
+    }
+}
+
+/* 시설 아이콘 활성화 */
+.facility-active {
+    background-color: #dbeafe !important; /* blue-100 */
+    color: #2563eb !important; /* blue-600 */
+    font-weight: bold;
+}
