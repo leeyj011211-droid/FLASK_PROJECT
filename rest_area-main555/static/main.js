@@ -266,7 +266,7 @@ function drawRestAreas(rests) {
     // 타임라인 아이템 (React 디자인 복제)
     const item = document.createElement("div");
     item.className = "timeline-item animate-fade-in-up";
-    item.style.animationDelay = `${idx * 0.1}s`; // 순차적 등장
+    //item.style.animationDelay = `${idx * 0.1}s`; // 순차적 등장
 
     // 중앙 노드 색상 (충전소 여부 등에 따라)
     const nodeColor = r.has_ev ? "bg-green-500" : "bg-blue-500";
@@ -313,42 +313,59 @@ window.openRestModalFromId = function(id) {
     openRestModal(r);
 }
 
+// main.js
+
+// 1. 모달 열기 함수
 function openRestModal(rest) {
   const restName = formatRestName(rest.name);
 
-  document.getElementById("modal-highway").textContent = rest.route_no;
+  // 상단 텍스트 설정
+  //document.getElementById("modal-highway").textContent = rest.route_no;
   document.getElementById("modal-name").textContent = restName;
-  document.getElementById("modal-rating").textContent = rest.rating || "4.5";
-
+  
+  // 요청하신 가격 정보 삭제 (관련 UI 업데이트 생략 또는 아래 HTML에서 삭제)
   document.getElementById("modal-menu-name").textContent = rest.food || "정보 없음";
-  document.getElementById("modal-menu-price").textContent = rest.price || "가격정보 없음";
-  document.getElementById("modal-menu-desc").textContent = rest.desc || "대표 메뉴입니다.";
+  document.getElementById("modal-menu-desc").textContent = rest.desc || "이 휴게소의 인기 메뉴입니다.";
 
-  // 시설물 아이콘 활성화/비활성화 처리
-  const setFac = (id, has) => {
+  // 2. 시설물 아이콘 활성화 스타일 함수 (데이터가 1 또는 true일 때만 활성)
+  const setFacStyle = (id, has) => {
       const el = document.getElementById(id);
-      if(has) {
-          el.classList.add("facility-active", "bg-blue-50", "text-blue-600");
-          el.classList.remove("bg-gray-50", "text-gray-400");
-      } else {
-          el.classList.remove("facility-active", "bg-blue-50", "text-blue-600");
-          el.classList.add("bg-gray-50", "text-gray-400");
+      if (!el) return;
+      
+      // DB 데이터가 숫자 1이나 문자열 "1"로 올 수 있으므로 확실히 체크
+      const isActive = (has === true || has === 1 || has === "1");
+      if(isActive) { //활성화
+          el.className = "flex-1 py-3 rounded-2xl border border-blue-100 bg-blue-50 text-blue-600 flex flex-col items-center justify-center gap-1";
+      } else { //비활성화
+          el.className = "flex-1 py-3 rounded-2xl border border-gray-50 bg-gray-50 text-gray-300 opacity-60 flex flex-col items-center justify-center gap-1";
       }
   };
 
- setFac("fac-gas", rest.has_gas);
- setFac("fac-ev", rest.has_ev);
- setFac("fac-pharmacy", rest.has_pharmacy);
- setFac("fac-baby", rest.has_baby);
+  setFacStyle("fac-gas", rest.has_gas);
+  setFacStyle("fac-ev", rest.has_ev);
+  setFacStyle("fac-pharmacy", rest.has_pharmacy);
+  setFacStyle("fac-baby", rest.has_baby);
 
-  document.getElementById("modal-naver").onclick = () => {
-    const q = encodeURIComponent(`${restName} ${rest.direction}`);
-    window.open(`https://map.naver.com/p/search/${q}`, "_blank");
-  };
+  // 버튼 설정
+  const kakaoBtn = document.getElementById("modal-kakao");
+  if (kakaoBtn) {
+    kakaoBtn.innerHTML = `<i data-lucide="map-pin" class="w-5 h-5"></i> 카카오맵 위치보기`;
+    kakaoBtn.onclick = () => {
+        const q = encodeURIComponent(`${restName} ${rest.direction || ''}`);
+        window.open(`https://map.kakao.com/link/search/${q}`, "_blank");
+    };
+  }
+
+  // Lucide 아이콘 렌더링
+  if (window.lucide) lucide.createIcons();
 
   document.getElementById("rest-modal").classList.remove("hidden");
 }
 
+// 2. 모달 닫기 함수 (window에 등록하여 어디서든 실행 가능하게)
 window.closeRestModal = function() {
-  document.getElementById("rest-modal").classList.add("hidden");
-}
+    const modal = document.getElementById("rest-modal");
+    if (modal) {
+        modal.classList.add("hidden");
+    }
+};

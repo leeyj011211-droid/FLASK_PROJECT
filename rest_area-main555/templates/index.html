@@ -16,6 +16,11 @@
     <style>
         body { font-family: 'Noto Sans KR', sans-serif; background-color: #f3f4f6; }
     </style>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="/static/style.css" />
+
 </head>
 <body class="min-h-screen pb-12">
 
@@ -104,40 +109,55 @@
         </div>
     </div>
 
+
+<body>
     <div id="rest-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeRestModal()"></div>
-        <div class="relative bg-white rounded-3xl w-full max-w-sm p-6 shadow-2xl transform transition-all scale-100">
-            <button onclick="closeRestModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">✕</button>
+        <div class="relative bg-white rounded-[2.5rem] w-full max-w-sm p-8 shadow-2xl">
+            <button type="button" onclick="closeRestModal()" class="absolute top-6 right-6 text-gray-400 hover:text-gray-600 text-2xl z-10">✕</button>
             
             <div class="text-center mb-6">
-                <span id="modal-highway" class="inline-block px-3 py-1 bg-gray-100 rounded-full text-xs font-bold text-gray-500 mb-2"></span>
+                <span id="modal-highway" class="inline-block px-3 py-1 bg-gray-50 rounded-full text-[10px] font-bold text-gray-400 border border-gray-100 mb-2 italic"></span>
                 <h2 id="modal-name" class="text-2xl font-black text-gray-900"></h2>
-                <div class="text-yellow-500 font-bold mt-1">⭐ <span id="modal-rating"></span></div>
             </div>
 
-            <div class="space-y-4">
-                <div class="bg-orange-50 p-4 rounded-2xl border border-orange-100">
-                    <h3 class="text-xs font-bold text-orange-600 mb-2">🏆 대표 메뉴</h3>
-                    <div class="flex justify-between items-start">
-                        <span id="modal-menu-name" class="font-bold text-gray-800"></span>
-                        <span id="modal-menu-price" class="font-bold text-orange-500"></span>
+            <div class="space-y-6">
+                <div class="bg-orange-50/50 p-6 rounded-[2rem] border border-orange-100 text-center">
+                    <h3 class="text-[10px] font-bold text-orange-600 mb-2 uppercase tracking-widest font-sans">Representative Menu</h3>
+                    <p id="modal-menu-name" class="text-lg font-bold text-gray-800"></p>
+                    <p id="modal-menu-desc" class="text-xs text-gray-400 mt-2 leading-relaxed"></p>
+                </div>
+
+                <div>
+                    <h3 class="text-[10px] font-bold text-gray-400 mb-3 ml-1 uppercase tracking-widest font-sans">Facilities</h3>
+                    <div class="flex gap-2 text-[10px] font-bold">
+                        <div id="fac-gas" class="flex-1 py-3 rounded-2xl border flex flex-col items-center justify-center gap-1.5 transition-all">
+                            <i data-lucide="fuel" class="w-4 h-4"></i>
+                            <span>주유소</span>
+                        </div>
+                        <div id="fac-ev" class="flex-1 py-3 rounded-2xl border flex flex-col items-center justify-center gap-1.5 transition-all">
+                            <i data-lucide="zap" class="w-4 h-4"></i>
+                            <span>전기차</span>
+                        </div>
+                        <div id="fac-pharmacy" class="flex-1 py-3 rounded-2xl border flex flex-col items-center justify-center gap-1.5 transition-all">
+                            <i data-lucide="pill" class="w-4 h-4"></i>
+                            <span>약국</span>
+                        </div>
+                        <div id="fac-baby" class="flex-1 py-3 rounded-2xl border flex flex-col items-center justify-center gap-1.5 transition-all">
+                            <i data-lucide="baby" class="w-4 h-4"></i>
+                            <span>수유실</span>
+                        </div>
                     </div>
-                    <p id="modal-menu-desc" class="text-xs text-gray-500 mt-1"></p>
                 </div>
 
-                <div class="grid grid-cols-4 gap-2 text-center text-xs">
-                    <div id="fac-gas" class="p-2 rounded-lg bg-gray-50 text-gray-400">⛽ 주유</div>
-                    <div id="fac-ev" class="p-2 rounded-lg bg-gray-50 text-gray-400">⚡ 전기</div>
-                    <div id="fac-pharmacy" class="p-2 rounded-lg bg-gray-50 text-gray-400">💊 약국</div>
-                    <div id="fac-baby" class="p-2 rounded-lg bg-gray-50 text-gray-400">👶 수유</div>
-                </div>
-
-                <button id="modal-naver" class="w-full py-3 bg-[#03C75A] text-white font-bold rounded-xl shadow-md hover:bg-[#02b351]">
-                    네이버 플레이스 상세보기
+                <button id="modal-kakao" class="w-full py-4 bg-[#FEE500] hover:bg-[#FADA0A] text-black font-black rounded-2xl flex items-center justify-center gap-2 transition-all">
+                    <i data-lucide="map-pin" class="w-5 h-5"></i>
+                    <span>카카오맵 위치보기</span>
                 </button>
             </div>
         </div>
     </div>
+</body>
 
     <script src="/static/main.js"></script>
 </body>
